@@ -17,12 +17,14 @@ public:
 private:
   int parse_function(std::string &line);
   int parse_statement(std::string &line, basic_block &bb);
+  function *get_current_function() { return _func; }
 
 private:
   std::string _filename;
   function* _func;
   std::string _line;
 };
+
 
 } // namespace hls::parser
 

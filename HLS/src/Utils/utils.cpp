@@ -14,6 +14,7 @@
 #include <filesystem>
 #include <iostream>
 #include <stdlib.h>
+#include <array> 
 
 namespace hls::utils {
 

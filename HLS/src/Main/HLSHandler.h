@@ -11,13 +11,14 @@ public:
   ~HLSHandler();
 
   void run(int argc, char *argv[]);
-
+  void schedule();
+  void binding(basic_block& bb);
 private:
 
   function* _func;
   parser::parser* _parser; 
-
-};
+  
+};  
 
 } // namespace hls
 
