@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <unordered_map>
 
 namespace hls {
 
@@ -31,6 +32,7 @@ enum class OP_TYPE {
 enum class RET_TYPE { RET_VOID, RET_INT };
 
 class reg;
+class point;
 
 class statement {
 public:
@@ -52,8 +54,12 @@ public:
   void set_regs(const std::vector<int> &r) { regs = r; }
   std::vector<int> &get_regs() { return regs; }
 
+  int get_op_index(){return op_index;}
+  void set_op_index(int index){op_index = index;}
+
 private:
   int begin_cycle;
+  int op_index;
   std::vector<int> regs;
   std::string _line;
   OP_TYPE _type;
@@ -88,7 +94,7 @@ public:
   int  get_end_cycle() { return end_cycle; }
   void set_colors(int c) { colors = c; }
   int get_colors() { return colors; }
-  
+  std::unordered_map<std::string, point*> points;
 private:
   int colors;
   int end_cycle;
@@ -167,14 +173,6 @@ class point {
     std::vector<std::string> prev_points;
     bool visited;
     int color;
-};
-
-class reg{
-  public:
-    reg(){};
-    ~reg(){};
-  private:
-    std::vector<std::string> vars;
 };
 
 } // namespace hls
