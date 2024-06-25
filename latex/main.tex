@@ -1,6 +1,8 @@
 %!TeX program = xelatex
 \documentclass[12pt,hyperref,a4paper,UTF8]{ctexart}
 \usepackage{SHUreport}
+\usepackage{subcaption}
+\usepackage{graphicx}
 \setcounter{secnumdepth}{5}
 %%-------------------------------正文开始---------------------------%%
 \begin{document}
@@ -75,7 +77,7 @@
 
 整体上分为两个步骤，首先将解析后的文件进行寄存器的绑定和操作调度，然后根据调度结果进行控制逻辑综合。
 
-\subusbsection{数据结构}
+\subsubsection{数据结构}
 
 \paragraph{绑定和调度}
 
@@ -87,58 +89,57 @@
 
 \subsection{寄存器的绑定和操作调度}
 
-首先
+首先，在分配寄存器之前需要将寄存器分为全局寄存器，局部寄存器和常量三类，对于全局寄存器，整个函数流程稳定分配一个寄存器，可以在程序开头就分配好，对于常量而言不需要寄存器直接赋值即可，对于局部寄存器需要在块内做左边算法来获得其生命周期和所指的变量。
 
+对于常量，既不是函数输入，仅出现在右值的量。将其设置为寄存器-1。
 
-寄存器的绑定采用左边算法，
+对于全局变量，即在两个或以上的块出现的量，对于每一块设置一个$get\_vars$的方法，用于统计出现在本块中的所有变量，然后将块与块之间做交集，将交集求并即可得到全局变量表。在程序开始时依次分配寄存器。
+
+对于局部变量，采取左边算法进行寄存器的动态绑定。需要首先建立拓扑排序树。对于一个block:
 
 \begin{enumerate}
-\item 如果是目标点，结束，返回。
-\item 如果该点已经被锁定，已放入到了闭列表中，或者该点是障碍或者非法点，跳过该点。
-\item 如果该点未被访问，计算他的代价，将父节点设置为取出的点，将他标记已访问之后放入开列表里。
-\item 如果已在开列表中，且不是非法点，则重新计算其代价F，进行松弛，如果新计算的代价比原来的代价小，则更新开列表中对应点的代价和父节点，如果代价更大则不管。
+\item 依次取出Block中的statement，对于每个statement，将$var$建立节点放入树中。
+\item 遍历操作数，查看是否已经在树中，如果在，则将$var$的入度加1，并将操作数对应节点的后置节点设为当前节点，当前节点前置节点设为操作数对应节点，如果不在，说明为常量或者全局变量，对入度没有影响。
+\item 遍历$vector<point>points$，寻找入度为0的点，入队，设置开始时间为0，从寄存器数组$vector<color>colors$中取出一个颜色，如果寄存器数组为空，则新增一种颜色。
+\item 如果队列不为空，循环，取出队首，将队首的后置节点入度减1，将颜色寄存器释放存。遍历队列中入度为0的点，更新点的开始时间，将颜色寄存器分配给该点，入队。
+\item 队列为空，程序结束，遍历statement，设置statement的开始时间为$var$的开始时间。完成操作数的调度。
 \end{enumerate}
 
-循环直到找到目标点。
-
-\subsubsection{代价F的计算}
-
-在寻径过程中，代价F由实际代价G和启发式估计H两部分组成。
-
-实际代价G表示从起点到当前点的实际距离，在遍历节点的过程中，子节点的G为其父节点+1。
-
-启发式估计H表示从当前点到终点的预估距离，在本题中，启发式估计H为当前点到中点的曼哈顿距离。
-
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/binding\_result.png}
+    \caption{拓扑排序树}
+    \label{fig:完成调度后的结果}
+\end{figure}
 \section{测试方法和验证}
+
+程序的输入数组a,b综合为ram，在vivador中进行仿真。
+对于函数的输入，n为外界规定的数组长度，a[i],b[i]为从ram中读取的数值。
+对于输出，cl对应输出结果result，需要结果标志信号done\_flag。在执行load指令时，需要制定地址i，即a\_ddr和b\_ddr，同时需要读使能信号a\_rd\_en和b\_rd\_en。
+
+其外部完整电路为:
+
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{./figures/结构示意图.png}
+        \caption{结构示意图}
+        \label{fig:sub1}
+    \end{minipage}
+    \hfill % 添加适当的空间
+    \begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{./figures/综合结果.png}
+        \caption{综合结果}
+        \label{fig:sub2}
+    \end{minipage}
+\end{figure}
 
 \subsection{测试方法}
 
-在Astar文件路径下，执行命令行:
 
-\begin{verbatim}
-    .\build\bin\Astar.exe .\prob4.txt > .\output.txt
-\end{verbatim}
-    
-也可以通过cmake自行编译。
 
 \subsection{验证结果}
 
 输入后的结果如下(见output.txt)
-
-\begin{figure}[htbp]
-    \centering
-    \begin{minipage}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/input.png}
-        \caption{输入网格}
-        \label{fig:image1}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figures/result.png}
-        \caption{输出网格}
-        \label{fig:image2}
-    \end{minipage}
-\end{figure}
 \end{document}
