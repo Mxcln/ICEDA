@@ -187,6 +187,16 @@ public:
       return false;
   }
 
+  int regNum() {
+    int max = 0;
+    for (auto& reg : reg_map) {
+      if (reg.second > max) {
+        max = reg.second;
+      }
+    }
+    return max + 1;
+  }
+
   int get_name_to_block(std::string name) {
     for(int i = 0; i < _blocks.size(); i++) {
       if(_blocks[i].get_label_name() == name)
