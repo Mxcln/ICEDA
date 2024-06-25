@@ -217,14 +217,10 @@ void HLSHandler::binding(basic_block& bb,int& colors){
   {
     end_cycle = std::max(end_cycle, bb.points[p]->get_begin_cycle()+1);
   }
+  bb.set_end_cycle(end_cycle);
 
 
   bb.set_colors(colors);
-
-  for (const auto& p : bb.get_outputs())
-  {
-    bb.points[p]->set_end_cycle(end_cycle);
-  }
   std::cout << "block:" << bb.get_name()  << " end_cycle:" << bb.get_end_cycle() << std::endl;
 
   //bindding to statement

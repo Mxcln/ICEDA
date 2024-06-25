@@ -123,6 +123,9 @@ public:
   }
 
   void add_statement_by_cycle(statement* s, int cycle) {
+    if (statements_by_cycle.find(cycle) == statements_by_cycle.end()) {
+      statements_by_cycle[cycle] = std::vector<statement*>();
+    }
     statements_by_cycle[cycle].push_back(s);              
   }
 

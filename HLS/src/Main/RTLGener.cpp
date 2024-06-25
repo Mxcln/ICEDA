@@ -73,7 +73,6 @@ void RTLGener::signal_declaration(std::ofstream& out)
         out << "    reg [" << REG_WIDTH - 1 << ":0] reg_" << i << ";\n";
     }
 
-    auto state_width = 
 
 }
 
