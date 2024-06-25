@@ -1,7 +1,7 @@
 %!TeX program = xelatex
 \documentclass[12pt,hyperref,a4paper,UTF8]{ctexart}
 \usepackage{SHUreport}
-
+\setcounter{secnumdepth}{5}
 %%-------------------------------正文开始---------------------------%%
 \begin{document}
 
@@ -75,9 +75,20 @@
 
 整体上分为两个步骤，首先将解析后的文件进行寄存器的绑定和操作调度，然后根据调度结果进行控制逻辑综合。
 
+\subusbsection{数据结构}
+
+\paragraph{绑定和调度}
+
+对于操作的调度和寄存器绑定而言，主要沿用Basic.hpp中的类，在function类下添加<变量，寄存器>的哈希表，以及全局变量$global\_regs$和常量$constant\_regs$。
+
+在statement类下添加在该块逻辑里操作开始和结束的时间。
+
+对于调度过程中，需要采用ASAP算法进行拓扑排序，所以引入一个节点类$point$，带有节点值，前序节点，后序节点等信息，用于进行拓扑排序。
+
 \subsection{寄存器的绑定和操作调度}
 
-首先对于每个模块内，进行寄存器的绑定和操作调度。采用左边算法，
+首先
+
 
 寄存器的绑定采用左边算法，
 
