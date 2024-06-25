@@ -75,6 +75,7 @@ void HLSHandler::binding(basic_block& bb,int& colors){
         {
           if(j==0)
           {
+            _func->add_reg_map(s.get_oprand(j),-3);
             continue;
           }
         }
@@ -101,6 +102,13 @@ void HLSHandler::binding(basic_block& bb,int& colors){
 
         if(name == "0" || name == "1")
           continue;
+
+        if(name == "n")
+        {
+          _func->add_reg_map(name,-4);
+          continue;
+        }
+
         bb.add_input(name);
         bb.points[name] = new point(name);
       }
@@ -206,7 +214,6 @@ void HLSHandler::binding(basic_block& bb,int& colors){
     end_cycle = std::max(end_cycle, bb.points[p]->get_begin_cycle()+1);
   }
 
-  bb.set_end_cycle(end_cycle);
 
   bb.set_colors(colors);
 
@@ -214,7 +221,7 @@ void HLSHandler::binding(basic_block& bb,int& colors){
   {
     bb.points[p]->set_end_cycle(end_cycle);
   }
-
+  std::cout << "block:" << bb.get_name()  << " end_cycle:" << bb.get_end_cycle() << std::endl;
 
   //bindding to statement
   for(size_t i=0;i<ss.size();i++)
@@ -233,6 +240,9 @@ void HLSHandler::binding(basic_block& bb,int& colors){
     {
       s.set_begin_cycle(std::max(0,bb.points[v]->get_begin_cycle()-1));
     }
+
+    bb.add_statement_by_cycle(&s,s.get_begin_cycle());
+
     s.add_reg(bb.points[v]->get_color());
 
     for (int j=0;j<s.get_num_oprands();j++)

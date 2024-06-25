@@ -117,8 +117,7 @@
 对于函数的输入，n为外界规定的数组长度，a[i],b[i]为从ram中读取的数值。
 对于输出，cl对应输出结果result，需要结果标志信号done\_flag。在执行load指令时，需要制定地址i，即a\_ddr和b\_ddr，同时需要读使能信号a\_rd\_en和b\_rd\_en。
 
-其外部完整电路为:
-
+其外部完整电路为(详见top.v):
 
 \begin{figure}[htbp]
     \centering
@@ -137,9 +136,11 @@
 
 \subsection{测试方法}
 
-
+可知该IR的输入输出为数组，输出为数组点乘，通过测试文件tb_top.v，初始化给两个ram写入[0,10]十个数，然后复位生成电路，开始计算结果。
 
 \subsection{验证结果}
+输入后的结果如图
 
-输入后的结果如下(见output.txt)
+
+
 \end{document}

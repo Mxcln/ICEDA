@@ -122,6 +122,15 @@ public:
     }
   }
 
+  void add_statement_by_cycle(statement* s, int cycle) {
+    statements_by_cycle[cycle].push_back(s);              
+  }
+
+  std::unordered_map<int,std::vector<statement*>>& get_statements_by_cycle() 
+  {
+    return statements_by_cycle;
+  }
+
   std::unordered_map<std::string, point*> points;
 
 private:
@@ -133,6 +142,7 @@ private:
   std::vector<std::string> outputs;
 
   std::vector<std::string> var_names;
+  std::unordered_map<int,std::vector<statement*>> statements_by_cycle;
 };
 
 class function {
