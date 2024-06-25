@@ -1,0 +1,15 @@
+read_aiger ./benchmarks/cavlc.aig
+ps -a
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite

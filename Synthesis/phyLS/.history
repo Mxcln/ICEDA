@@ -1,0 +1,368 @@
+read_aig ./benchmarks/cavlc.aig
+read_aig ./benchmarks/hyp.aig
+read_aig ./benchmarks/square.aig
+read_aig ./benchmarks/router.aig
+read_aig ./benchmarks/ctrl.aig
+read_aig ./benchmarks/max.aig
+read_aig ./benchmarks/dec.aig
+read_aig ./benchmarks/arbiter.aig
+read_aig ./benchmarks/log2.aig
+read_aig ./benchmarks/int2float.aig
+read_aig ./benchmarks/priority.aig
+read_aig ./benchmarks/div.aig
+read_aig ./benchmarks/mem_ctrl.aig
+read_aig ./benchmarks/i2c.aig
+read_aig ./benchmarks/bar.aig
+read_aig ./benchmarks/voter.aig
+read_aig ./benchmarks/multiplier.aig
+read_aig ./benchmarks/sqrt.aig
+read_aig ./benchmarks/sin.aig
+read_aig ./benchmarks/adder.aig
+read_aiger ./benchmarks/cavlc.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/hyp.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/square.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/router.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/ctrl.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/max.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/dec.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/arbiter.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/log2.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/int2float.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/priority.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/div.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/mem_ctrl.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/i2c.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/bar.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/voter.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/multiplier.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/sqrt.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/sin.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/adder.aig
+ps -a
+balance
+balance
+balance
+balance
+balance
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+rewrite
+read_aiger ./benchmarks/adder.aig
+ps -a
+quit
+ps -a
+quit
+read_aiger ./benchmarks/cavlc.aig
+read_aiger ./benchmarks/cavlc.aig
+read_aiger ./benchmarks/cavlc.aig
