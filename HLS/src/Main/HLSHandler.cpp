@@ -83,7 +83,8 @@ void HLSHandler::binding(basic_block& bb,int& colors){
       {
         if((j==1)||(j==3))
         { 
-          continue;
+          _func->add_reg_map(s.get_oprand(j),-2);
+          continue; 
         }
       }
 

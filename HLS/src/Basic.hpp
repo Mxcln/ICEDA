@@ -187,6 +187,14 @@ public:
       return false;
   }
 
+  int get_name_to_block(std::string name) {
+    for(int i = 0; i < _blocks.size(); i++) {
+      if(_blocks[i].get_label_name() == name)
+        return i;
+    }
+    return -1;
+  }
+
 private:
   std::vector<basic_block> _blocks;
   std::string _name;
@@ -232,6 +240,7 @@ class point {
             std::cout << "Element " << p << " not found in the vector." << std::endl;
         }
       }
+
   private:
     
     int begin_cycle;
