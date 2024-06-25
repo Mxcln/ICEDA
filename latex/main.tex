@@ -1,0 +1,133 @@
+%!TeX program = xelatex
+\documentclass[12pt,hyperref,a4paper,UTF8]{ctexart}
+\usepackage{SHUreport}
+
+%%-------------------------------正文开始---------------------------%%
+\begin{document}
+
+%%-----------------------封面--------------------%%
+\cover
+
+%%------------------摘要-------------%%
+%\begin{abstract}
+%
+%在此填写摘要内容
+%
+%\end{abstract}
+
+\thispagestyle{empty} % 首页不显示页码
+
+%%--------------------------目录页------------------------%%
+\newpage
+\tableofcontents
+
+%%------------------------正文页从这里开始-------------------%
+\newpage
+
+%%可选择这里也放一个标题
+%\begin{center}
+%    \title{ \Huge \textbf{{标题}}}
+%\end{center}
+
+\section{任务需求分析}   
+
+\subsection{问题}
+
+以上述IR作为输入，我们提供基本的IR的parser，根据上述IR，完成调度、寄存器及操作的绑定、控制逻辑综合，函数输入的数组综合为SRAM存储器，需要根据load/store指令来读写存储器数据。最终生成RTL代码。基本计算操作可以调用RTL计算模块，或直接使用原始操作符。
+
+\subsection{需求分析}
+
+1. 实现寄存器的绑定和调度
+2. 实现控制逻辑综合
+
+\section{团队分工情况}
+
+\subsection{分工情况}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{姓名} & \textbf{分工} \\ \hline
+    秦振航 & 寄存器的绑定和操作调度\\ \hline
+    杨远达 & 控制逻辑综合 \\ \hline
+    \end{tabular}
+\end{table}
+
+\section{程序实现思路与数据结构}
+
+\subsection{代码结构}
+
+项目的源代码在HLS/src文件夹中，包含以下模块：
+
+\begin{enumerate}
+    \item Paser 输入文件解析模块。
+    \item main 主函数。
+    \item Basic 基础类，包括语法块，句子，以及调度绑定时需要的点类。
+    \item HLSHandler 高层次综合的实现类
+\end{enumerate}
+
+\subsection{命令行参数解析}
+
+-i 输入解析文件名
+
+\subsection{实现思路}
+
+整体上分为两个步骤，首先将解析后的文件进行寄存器的绑定和操作调度，然后根据调度结果进行控制逻辑综合。
+
+\subsection{寄存器的绑定和操作调度}
+
+首先对于每个模块内，进行寄存器的绑定和操作调度。采用左边算法，
+
+寄存器的绑定采用左边算法，
+
+\begin{enumerate}
+\item 如果是目标点，结束，返回。
+\item 如果该点已经被锁定，已放入到了闭列表中，或者该点是障碍或者非法点，跳过该点。
+\item 如果该点未被访问，计算他的代价，将父节点设置为取出的点，将他标记已访问之后放入开列表里。
+\item 如果已在开列表中，且不是非法点，则重新计算其代价F，进行松弛，如果新计算的代价比原来的代价小，则更新开列表中对应点的代价和父节点，如果代价更大则不管。
+\end{enumerate}
+
+循环直到找到目标点。
+
+\subsubsection{代价F的计算}
+
+在寻径过程中，代价F由实际代价G和启发式估计H两部分组成。
+
+实际代价G表示从起点到当前点的实际距离，在遍历节点的过程中，子节点的G为其父节点+1。
+
+启发式估计H表示从当前点到终点的预估距离，在本题中，启发式估计H为当前点到中点的曼哈顿距离。
+
+\section{测试方法和验证}
+
+\subsection{测试方法}
+
+在Astar文件路径下，执行命令行:
+
+\begin{verbatim}
+    .\build\bin\Astar.exe .\prob4.txt > .\output.txt
+\end{verbatim}
+    
+也可以通过cmake自行编译。
+
+\subsection{验证结果}
+
+输入后的结果如下(见output.txt)
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/input.png}
+        \caption{输入网格}
+        \label{fig:image1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/result.png}
+        \caption{输出网格}
+        \label{fig:image2}
+    \end{minipage}
+\end{figure}
+\end{document}

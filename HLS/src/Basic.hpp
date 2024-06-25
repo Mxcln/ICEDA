@@ -84,17 +84,46 @@ public:
   void clear_statements() { _statements.clear(); }
   std::vector<statement> &get_statements() { return _statements; }
   std::string get_label_name() { return _label; }
+  
   std::vector<std::string> &get_inputs() { return inputs; }
   std::vector<std::string> &get_outputs() { return outputs; }
+  
   void add_input(const std::string &input) { inputs.push_back(input);}
   void add_output(const std::string &output) { outputs.push_back(output);}
+  
   bool is_input(const std::string &input) { return std::find(inputs.begin(), inputs.end(), input) != inputs.end(); }
   bool is_output(const std::string &output) { return std::find(outputs.begin(), outputs.end(), output) != outputs.end(); }
+  
   void set_end_cycle (int t) { end_cycle = t; }
   int  get_end_cycle() { return end_cycle; }
+
   void set_colors(int c) { colors = c; }
   int get_colors() { return colors; }
+
+  std::vector<std::string> get_var_names(){
+    std::cout << "var_names size: " << var_names.size() << std::endl;
+    for(auto s : _statements){
+      if(!var_names.empty()){
+      auto it = std::find(var_names.begin(), var_names.end(), s.get_var());
+      if(s.get_var()!="" && it == var_names.end())
+        var_names.push_back(s.get_var());
+      }
+      else{
+        var_names.push_back(s.get_var());
+      }
+      std::cout << "var_names size: " << var_names.size() << std::endl;
+      int op_num = s.get_num_oprands();
+      for(int i = 0; i < op_num; i++){
+        std::cout << "oprand: " << s.get_oprand(i);
+        auto it = std::find(var_names.begin(), var_names.end(), s.get_oprand(i));
+        if(s.get_oprand(i)!="" && it== var_names.end())
+          var_names.push_back(s.get_oprand(i));
+      } 
+    }
+  }
+
   std::unordered_map<std::string, point*> points;
+
 private:
   int colors;
   int end_cycle;
@@ -102,6 +131,8 @@ private:
   std::string _label;
   std::vector<std::string> inputs;
   std::vector<std::string> outputs;
+
+  std::vector<std::string> var_names;
 };
 
 class function {
@@ -121,11 +152,48 @@ public:
 
   friend std::ostream& operator<<(std::ostream& os, function& func);
 
+  void add_global_reg(std::string reg) { global_regs.push_back(reg); }
+  std::vector<std::string>& get_global_regs() {
+    return global_regs;
+  }
+
+  int is_global_reg(std::string reg) {
+    int i;
+    for (i = 0; i < global_regs.size(); i++) {
+      if(global_regs[i] == reg)
+        return i;
+    }
+    if(i==global_regs.size())
+      return -1;
+  }
+
+  void add_reg_map(std::string reg, int index) {
+    reg_map[reg] = index;
+  }
+
+  int get_reg_map(std::string reg) {
+    if(reg_map.find(reg) != reg_map.end())
+      return reg_map[reg];
+    else
+      return -1;
+  }
+
+  bool is_set_reg(std::string reg) {
+    if (reg_map.empty())
+      return false;
+    if(reg_map.find(reg) != reg_map.end())
+      return true;
+    else
+      return false;
+  }
+
 private:
   std::vector<basic_block> _blocks;
   std::string _name;
   std::vector<var> _params;
   RET_TYPE _ret_type;
+  std::vector<std::string> global_regs = {"c","cl","i","cr","i_inc"};    //全局寄存器 
+  std::unordered_map<std::string, int> reg_map;
 };
 
 // std::ostream& operator<<(std::ostream& os, const hls::function& func);
