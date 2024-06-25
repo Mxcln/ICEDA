@@ -4,7 +4,7 @@
 #include <Parser/parser.h>
 
 namespace hls {
-
+class RTLGener;
 class HLSHandler {
 public:
   HLSHandler();
@@ -18,6 +18,7 @@ private:
 
   function* _func;
   parser::parser* _parser; 
+  RTLGener* _rtl_gener;
 
 };  
 

@@ -1,0 +1,51 @@
+adder
+
+AIG   i/o = 256/129   gates = 1020   level = 255
+ntk   i/o = 256/129   gates = 1397   level = 171
+ntk   i/o = 256/129   gates = 1604   level = 88
+ntk   i/o = 256/129   gates = 1965   level = 61
+ntk   i/o = 256/129   gates = 1459   level = 91
+ntk   i/o = 256/129   gates = 1306   level = 160
+ntk   i/o = 256/129   gates = 1199   level = 213
+ntk   i/o = 256/129   gates = 1159   level = 227
+ntk   i/o = 256/129   gates = 1131   level = 227
+ntk   i/o = 256/129   gates = 1061   level = 255
+ntk   i/o = 256/129   gates = 1061   level = 255
+ntk   i/o = 256/129   gates = 1061   level = 255
+ntk   i/o = 256/129   gates = 1061   level = 255
+ntk   i/o = 256/129   gates = 1061   level = 255
+
+arbiter
+
+AIG   i/o = 256/129   gates = 11839   level = 87
+ntk   i/o = 256/129   gates = 9151   level = 59
+ntk   i/o = 256/129   gates = 6079   level = 32
+ntk   i/o = 256/129   gates = 5695   level = 23
+ntk   i/o = 256/129   gates = 5229   level = 34
+ntk   i/o = 256/129   gates = 5229   level = 34
+ntk   i/o = 256/129   gates = 5229   level = 34
+ntk   i/o = 256/129   gates = 5229   level = 34
+ntk   i/o = 256/129   gates = 5229   level = 34
+ntk   i/o = 256/129   gates = 5229   level = 34
+ntk   i/o = 256/129   gates = 5229   level = 34
+ntk   i/o = 256/129   gates = 5229   level = 34
+ntk   i/o = 256/129   gates = 5229   level = 34
+ntk   i/o = 256/129   gates = 5229   level = 34
+
+
+cavlc
+
+AIG   i/o = 10/11   gates = 693   level = 16
+ntk   i/o = 10/11   gates = 732   level = 13
+ntk   i/o = 10/11   gates = 733   level = 12
+ntk   i/o = 10/11   gates = 730   level = 11
+ntk   i/o = 10/11   gates = 703   level = 14
+ntk   i/o = 10/11   gates = 699   level = 13
+ntk   i/o = 10/11   gates = 698   level = 14
+ntk   i/o = 10/11   gates = 697   level = 14
+ntk   i/o = 10/11   gates = 693   level = 13
+ntk   i/o = 10/11   gates = 693   level = 13
+ntk   i/o = 10/11   gates = 693   level = 13
+ntk   i/o = 10/11   gates = 693   level = 13
+ntk   i/o = 10/11   gates = 693   level = 13
+ntk   i/o = 10/11   gates = 693   level = 13

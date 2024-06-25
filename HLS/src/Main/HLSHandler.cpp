@@ -1,4 +1,5 @@
 #include <Main/HLSHandler.h>
+#include <Main/RTLGener.h>
 #include <iostream>
 #include <unordered_map>
 #include <queue>
@@ -9,12 +10,14 @@ HLSHandler::HLSHandler()
 {
   _func = new function();
   _parser = new parser::parser(_func);
+  _rtl_gener = new RTLGener(_func);
 }
 
 HLSHandler::~HLSHandler()
 {
   delete _func;
   delete _parser;
+  delete _rtl_gener;
 }
 
 void HLSHandler::run(int argc, char *argv[])
@@ -32,6 +35,7 @@ void HLSHandler::run(int argc, char *argv[])
   }
 
   schedule();
+  _rtl_gener->generate("top.v");
   
 }
 
