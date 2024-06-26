@@ -46,6 +46,10 @@ private:
 
   void line(std::ofstream &out, const std::string &line, int indent = 0);
 
+  std::string return_name;
+
+  std::unordered_map<std::string, std::string> rom_addr;
+
   function *func;
 
 }; // class RTLGener
