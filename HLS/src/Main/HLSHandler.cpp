@@ -230,6 +230,13 @@ void HLSHandler::binding(basic_block& bb,int& colors){
     std::string v = s.get_var();
     if (v.empty())
     {
+      if(bb.get_end_cycle()>0)
+        s.set_begin_cycle(std::max(0,bb.get_end_cycle()-1));
+      else
+      {
+        bb.set_end_cycle(1);
+        s.set_begin_cycle(0);
+      }
       continue;
     }
     if (s.get_type() == OP_TYPE::OP_LOAD)
@@ -242,18 +249,6 @@ void HLSHandler::binding(basic_block& bb,int& colors){
     }
 
     // bb.add_statement_by_cycle(&s,s.get_begin_cycle());
-
-    s.add_reg(bb.points[v]->get_color());
-
-    for (int j=0;j<s.get_num_oprands();j++)
-    {
-      std::string op = s.get_oprand(j);
-      auto it = bb.points.find(op);
-      if (it != bb.points.end())   
-      { 
-        s.add_reg(bb.points[op]->get_color());
-      }
-    }
 
     std::cout<< s.get_begin_cycle() << " "  << s.get_var() << "(" << _func->get_reg_map(s.get_var()) << ")"  << " ";
     for(int j=0;j<s.get_num_oprands();j++)

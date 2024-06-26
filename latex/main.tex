@@ -136,11 +136,16 @@
 
 \subsection{测试方法}
 
-可知该IR的输入输出为数组，输出为数组点乘，通过测试文件tb_top.v，初始化给两个ram写入[0,10]十个数，然后复位生成电路，开始计算结果。
+可知该IR的输入输出为数组，输出为数组点乘，通过测试文件tb_top.v，初始化给两个ram写入[0,9]十个数，然后复位生成电路，开始计算结果。
 
 \subsection{验证结果}
-输入后的结果如图
-
+输入后的结果如图，输入为从9到0十个数，最终输出为285(8'f11d)
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/仿真结果.png}
+    \caption{结果}
+    \label{fig:仿真结果}
+\end{figure}
 
 
 \end{document}
