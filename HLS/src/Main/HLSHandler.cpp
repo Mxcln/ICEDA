@@ -58,14 +58,14 @@ void HLSHandler::global_binding(){
 
 void HLSHandler::binding(basic_block& bb,int& colors){
   std::cout<<"binding block:"<<bb.get_name()<<std::endl;
-  std::vector<statement> ss = bb.get_statements();
+  std::vector<statement>& ss = bb.get_statements();
   std::queue<point*> q;
   std::queue<int> free_color;
   free_color.push(colors);
 
   for(size_t i=0;i<ss.size();i++)
   { 
-    statement s = ss[i];
+    statement& s = ss[i];
     std::string v = s.get_var();
     if (v.empty())
     {
@@ -226,7 +226,7 @@ void HLSHandler::binding(basic_block& bb,int& colors){
   //bindding to statement
   for(size_t i=0;i<ss.size();i++)
   {
-    statement s = ss[i];
+    statement& s = ss[i];
     std::string v = s.get_var();
     if (v.empty())
     {
@@ -241,7 +241,7 @@ void HLSHandler::binding(basic_block& bb,int& colors){
       s.set_begin_cycle(std::max(0,bb.points[v]->get_begin_cycle()-1));
     }
 
-    bb.add_statement_by_cycle(&s,s.get_begin_cycle());
+    // bb.add_statement_by_cycle(&s,s.get_begin_cycle());
 
     s.add_reg(bb.points[v]->get_color());
 
@@ -267,12 +267,20 @@ void HLSHandler::binding(basic_block& bb,int& colors){
 
 void HLSHandler::schedule()
 {
-  std::vector<basic_block> bbs = _func->get_basic_blocks();
+  std::vector<basic_block>& bbs = _func->get_basic_blocks();
   int color=0;
   color = color + _func->get_global_regs().size();
   for(size_t i=0;i<bbs.size();i++)
   {
      binding(bbs[i],color);
   }
+
+  for (auto& block : _func->get_basic_blocks()) {
+    auto& hash = block.get_statements_by_cycle();
+    for (auto& statement : block.get_statements()) {
+      hash[statement.get_begin_cycle()].push_back(&statement);
+    }
+  }
+
 }
 } // namespace hls

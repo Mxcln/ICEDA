@@ -210,6 +210,20 @@ public:
     return max + 1;
   }
 
+  int blockNum() {
+    return _blocks.size();
+  }
+
+  int maxBlockCycle() {
+    int max = 0;
+    for (auto& block : _blocks) {
+      if (block.get_end_cycle() > max) {
+        max = block.get_end_cycle();
+      }
+    }
+    return max;
+  }
+
   int get_name_to_block(std::string name) {
     for(int i = 0; i < _blocks.size(); i++) {
       if(_blocks[i].get_label_name() == name)
