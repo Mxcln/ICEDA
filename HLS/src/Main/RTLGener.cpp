@@ -37,6 +37,7 @@ void RTLGener::gen_module_header(std::ofstream &out) {
 
       gen_port(out, var._name + "_addr", false, true, REG_WIDTH, false);
       gen_port(out, var._name + "_in", true, true, REG_WIDTH, false);
+      gen_port(out, var._name + "_rd_en", false, false, 1, false);
     } else {
       // out << "    input wire " << var._name << ",\n";
       gen_port(out, var._name, true, false, REG_WIDTH, false);
@@ -58,6 +59,7 @@ void RTLGener::gen_module_footer(std::ofstream &out) {
 
   for (auto& [addr, reg] : rom_addr) {
     out << "  assign " << addr << "_addr = " << reg << ";\n";
+    out << "  assign " << addr << "_rd_en = 1;\n";
   }
 
   out << "  assign result = " << reg_name(return_name) << ";\n";
@@ -76,7 +78,6 @@ void RTLGener::signal_declaration(std::ofstream &out) {
   int counter_width = std::log2(func->maxBlockCycle()) + 1;
 
   out << "    reg [" << state_width - 1 << ":0] state;\n";
-  out << "    reg [" << state_width - 1 << ":0] next_state;\n";
   out << "    reg [" << state_width - 1 << ":0] prev_state;\n";
   out << "    reg [" << counter_width - 1 << ":0] block_counter;\n\n";
   out << "    reg   done_flag_r;\n";
@@ -164,7 +165,7 @@ void RTLGener::state_machine(std::ofstream &out) {
 
         } else if (type == OP_TYPE::OP_LOAD) {
 
-          rom_addr[statement->get_var()] = reg_name(statement->get_oprand(1));
+          rom_addr[statement->get_oprand(0)] = reg_name(statement->get_oprand(1));
           out << "                        " << left_reg << " <= " << statement->get_oprand(0) << "_in\n";
 
 
@@ -213,7 +214,6 @@ void RTLGener::analyse_function() {
 
 void RTLGener::write_default_reg(std::ofstream &out) {
   nonBlockAssign(out, "state", "0");
-  nonBlockAssign(out, "next_state", "0");
   nonBlockAssign(out, "prev_state", "0");
   nonBlockAssign(out, "block_counter", "0");
   for (int i = 0; i < func->regNum(); i++) {

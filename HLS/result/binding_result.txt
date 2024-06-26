@@ -1,0 +1,17 @@
+binding block:0
+block:0 end_cycle:1
+0 c(0) 0(-1) 
+binding block:start
+block:start end_cycle:3
+0 i(2) 0(-2) 0(-2) i_inc(4) calc(-2) 
+0 cl(1) c(0) 0(-2) cr(3) calc(-2) 
+1 cond(5) i(2) n(-4) 
+binding block:calc
+block:calc end_cycle:5
+0 ai(5) a(-3) i(2) 
+0 bi(6) b(-3) i(2) 
+2 ci(6) ai(5) bi(6) 
+3 cr(3) cl(1) ci(6) 
+0 i_inc(4) i(2) 1(-1) 
+binding block:ret
+block:ret end_cycle:0
